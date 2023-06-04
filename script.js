@@ -141,7 +141,7 @@ const renderNewPlayerForm = () => {
   }
 };
 
-const init = async () => {
+const init = async () => {``
   const players = await fetchAllPlayers();
   renderAllPlayers(players);
 
