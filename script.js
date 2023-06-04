@@ -2,7 +2,7 @@ const playerContainer = document.getElementById("all-players-container");
 const newPlayerFormContainer = document.getElementById("new-player-form");
 
 // Add your cohort name to the cohortName variable below, replacing the 'COHORT-NAME' placeholder
-const cohortName = "YOUR COHORT NAME HERE";
+const cohortName = "2302-acc-ct-web-pt-b";
 // Use the APIURL variable for fetch requests
 const APIURL = `https://fsa-puppy-bowl.herokuapp.com/api/${cohortName}/`;
 
@@ -74,6 +74,68 @@ const renderAllPlayers = (playerList) => {
  */
 const renderNewPlayerForm = () => {
   try {
+    // target the div with the ID of new-player-form
+    let formDiv = document.getElementById("new-player-form");
+
+    // Create form
+    let form = document.createElement("form");
+    form.setAttribute("method", "post");
+    form.setAttribute("action", " ");
+
+    // Create input Element for Name
+    let name = document.createElement("input");
+    name.setAttribute("type", "text");
+    name.setAttribute("name", "Full name");
+    name.setAttribute("placeholder", "Full Name")
+
+    // Create input Element for Breed
+    let breed = document.createElement("input");
+    breed.setAttribute("type", "text");
+    breed.setAttribute("name", "Breed");
+    breed.setAttribute("placeholder", "Breed");
+
+    // Create input Element for Status
+    let status = document.createElement("input");
+    status.setAttribute("type", "text");
+    status.setAttribute("name", "status");
+    status.setAttribute("placeholder", "Status");
+
+    // Create input Element for imageUrl
+    let imageUrl = document.createElement("input");
+    imageUrl.setAttribute("type", "text");
+    imageUrl.setAttribute("name", "imageUrl");
+    imageUrl.setAttribute("placeholder", "imageUrl");
+
+    // Create input Element for TeamId
+    let teamId = document.createElement("input");
+    teamId.setAttribute("type", "number");
+    teamId.setAttribute("name", "TeamId");
+    teamId.setAttribute("placeholder", "TeamId");
+
+    // Create Submit button
+      let submit = document.createElement("input");
+      submit.setAttribute("type", "submit");
+      submit.setAttribute("value", "Submit");
+
+    // Append the name input to the form
+    form.appendChild(name);
+
+    // Append the breed input to the form
+    form.appendChild(breed);
+
+    // Append the status input to the form
+    form.appendChild(status);
+
+    // Append the imageUrl input to the form
+    form.appendChild(imageUrl);
+
+    // Append the TeamId input to the form
+    form.appendChild(teamId);
+
+    form.appendChild(submit);
+
+    formDiv.appendChild(form);
+
   } catch (err) {
     console.error("Uh oh, trouble rendering the new player form!", err);
   }
