@@ -7,12 +7,17 @@ const cohortName = "2302-acc-ct-web-pt-b";
 // Use the APIURL variable for fetch requests
 const APIURL = `https://fsa-puppy-bowl.herokuapp.com/api/${cohortName}/`;
 
+const PLAYERS_API_URL = 'https://fsa-puppy-bowl.herokuapp.com/api/2302-ACC-CT-WEB-PT-B/players';
+
 /**
  * It fetches all players from the API and returns them
  * @returns An array of objects.
  */
 const fetchAllPlayers = async () => {
   try {
+    const response = await fetch(PLAYERS_API_URL);
+    const players = await response.json();
+    return players;
   } catch (err) {
     console.error("Uh oh, trouble fetching players!", err);
   }
@@ -87,6 +92,18 @@ const removePlayer = async (playerId) => {
  */
 const renderAllPlayers = (playerList) => {
   try {
+    playerContainer.innerHTML = '';
+    players.forEach((player) => {
+      const playerElement = document.createElement('div');
+      playerElement.classList.add('player');
+      playerElement.innerHTML = `
+                <h2>${player.name}</h2>
+                <p>${player.breed}</p>
+                <p>${player.status}</p>
+                `;
+      playerContainer.appendChild(playerElement);
+      });
+
   } catch (err) {
     console.error("Uh oh, trouble rendering players!", err);
   }
