@@ -1,6 +1,7 @@
 const playerContainer = document.getElementById("all-players-container");
 const newPlayerFormContainer = document.getElementById("new-player-form");
 
+
 // Add your cohort name to the cohortName variable below, replacing the 'COHORT-NAME' placeholder
 const cohortName = "2302-acc-ct-web-pt-b";
 // Use the APIURL variable for fetch requests
@@ -26,6 +27,29 @@ const fetchSinglePlayer = async (playerId) => {
 
 const addNewPlayer = async (playerObj) => {
   try {
+    let nameValue = document.getElementsByTagName("input")[0].value
+    let breedValue = document.getElementsByTagName("input")[1].value
+    let statusValue = document.getElementsByTagName("input")[2].value
+    let imageValue = document.getElementsByTagName("input")[3].value
+    let teamidValue = document.getElementsByTagName("input")[4].value
+    
+    const response = await fetch("https://fsa-puppy-bowl.herokuapp.com/api/2302-acc-ct-web-pt-b/players", {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        name: nameValue,
+        breed: breedValue,
+        status: statusValue,
+        image: imageValue,
+        teamId: teamidValue,
+        timeStamp: new Date(),
+
+      }),
+    });
+    const result = await response.json();
+    alert(result);
   } catch (err) {
     console.error("Oops, something went wrong with adding that player!", err);
   }
@@ -74,9 +98,6 @@ const renderAllPlayers = (playerList) => {
  */
 const renderNewPlayerForm = () => {
   try {
-    // target the div with the ID of new-player-form
-    let formDiv = document.getElementById("new-player-form");
-
     // Create form
     let form = document.createElement("form");
     form.setAttribute("method", "post");
@@ -113,9 +134,13 @@ const renderNewPlayerForm = () => {
     teamId.setAttribute("placeholder", "TeamId");
 
     // Create Submit button
-      let submit = document.createElement("input");
+      let submit = document.createElement("button");
       submit.setAttribute("type", "submit");
-      submit.setAttribute("value", "Submit");
+      submit.setAttribute("id", "loginForm");
+      submit.innerHTML = "Submit";
+      submit.addEventListener("click", async () =>{
+      await addNewPlayer();
+      });
 
     // Append the name input to the form
     form.appendChild(name);
@@ -132,9 +157,14 @@ const renderNewPlayerForm = () => {
     // Append the TeamId input to the form
     form.appendChild(teamId);
 
+    // Append the Submit button to the form
     form.appendChild(submit);
 
-    formDiv.appendChild(form);
+    // Append the form to the div
+    newPlayerFormContainer.appendChild(form);
+
+    // Section for rendering all players back to the DOM
+    // init();
 
   } catch (err) {
     console.error("Uh oh, trouble rendering the new player form!", err);
