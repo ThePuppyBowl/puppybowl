@@ -16,12 +16,12 @@ const fetchAllPlayers = async () => {
   try {
     const response = await fetch(PLAYERS_API_URL);
     const players = await response.json();
-    return players;
+    return players.data.players;
   } catch (err) {
     console.error("Uh oh, trouble fetching players!", err);
   }
 };
-
+console.log(fetchAllPlayers());
 const fetchSinglePlayer = async (playerId) => {
   try {
   } catch (err) {
@@ -60,6 +60,8 @@ const addNewPlayer = async (playerObj) => {
 
 const removePlayer = async (playerId) => {
   try {
+    fetch(`${PLAYERS_API_URL}/${playerId}`, { method: "DELETE" });
+    await init();
   } catch (err) {
     console.error(
       `Whoops, trouble removing player #${playerId} from the roster!`,
@@ -88,7 +90,7 @@ const removePlayer = async (playerId) => {
  * @param playerList - an array of player objects
  * @returns the playerContainerHTML variable.
  */
-const renderAllPlayers = (playerList) => {
+const renderAllPlayers = (players) => {
   try {
     playerContainer.innerHTML = "";
     players.forEach((player) => {
@@ -98,8 +100,15 @@ const renderAllPlayers = (playerList) => {
                 <h2>${player.name}</h2>
                 <p>${player.breed}</p>
                 <p>${player.status}</p>
+                <button class="delete-button" data-id="${player.id}">Delete</button>
                 `;
       playerContainer.appendChild(playerElement);
+
+      // delete party
+      const deleteButton = playerElement.querySelector(".delete-button");
+      deleteButton.addEventListener("click", async (event) => {
+        removePlayer(player.id);
+      });
     });
   } catch (err) {
     console.error("Uh oh, trouble rendering players!", err);
