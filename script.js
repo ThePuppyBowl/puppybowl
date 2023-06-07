@@ -1,11 +1,12 @@
 const playerContainer = document.getElementById("all-players-container");
 const newPlayerFormContainer = document.getElementById("new-player-form");
 
-
 // Add your cohort name to the cohortName variable below, replacing the 'COHORT-NAME' placeholder
-const cohortName = "2302-acc-ct-web-pt-b";
+const cohortName = "2302-ACC-CT-WEB-PT-B";
 // Use the APIURL variable for fetch requests
 const APIURL = `https://fsa-puppy-bowl.herokuapp.com/api/${cohortName}/`;
+
+const PLAYERS_API_URL = `${APIURL}/players`;
 
 /**
  * It fetches all players from the API and returns them
@@ -13,6 +14,9 @@ const APIURL = `https://fsa-puppy-bowl.herokuapp.com/api/${cohortName}/`;
  */
 const fetchAllPlayers = async () => {
   try {
+    const response = await fetch(PLAYERS_API_URL);
+    const players = await response.json();
+    return players;
   } catch (err) {
     console.error("Uh oh, trouble fetching players!", err);
   }
@@ -27,6 +31,7 @@ const fetchSinglePlayer = async (playerId) => {
 
 const addNewPlayer = async () => {
   try {
+<<<<<<< HEAD
     let nameValue = document.getElementsByTagName("input")[0].value
     let breedValue = document.getElementsByTagName("input")[1].value
     let statusValue = document.getElementsByTagName("input")[2].value
@@ -35,8 +40,18 @@ const addNewPlayer = async () => {
     
     const response = await fetch(`${APIURL}/players/`, {
       method: 'POST',
+=======
+    let nameValue = document.getElementsByTagName("input")[0].value;
+    let breedValue = document.getElementsByTagName("input")[1].value;
+    let statusValue = document.getElementsByTagName("input")[2].value;
+    let imageValue = document.getElementsByTagName("input")[3].value;
+    let teamidValue = document.getElementsByTagName("input")[4].value;
+
+    const response = await fetch(PLAYERS_API_URL, {
+      method: "POST",
+>>>>>>> refs/remotes/origin/main
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         name: nameValue,
@@ -44,6 +59,10 @@ const addNewPlayer = async () => {
         status: statusValue,
         image: imageValue,
         teamId: teamidValue,
+<<<<<<< HEAD
+=======
+        timeStamp: new Date(),
+>>>>>>> refs/remotes/origin/main
       }),
     });
     const result = await response.json();
@@ -85,6 +104,17 @@ const removePlayer = async (playerId) => {
  */
 const renderAllPlayers = (playerList) => {
   try {
+    playerContainer.innerHTML = "";
+    players.forEach((player) => {
+      const playerElement = document.createElement("div");
+      playerElement.classList.add("player");
+      playerElement.innerHTML = `
+                <h2>${player.name}</h2>
+                <p>${player.breed}</p>
+                <p>${player.status}</p>
+                `;
+      playerContainer.appendChild(playerElement);
+    });
   } catch (err) {
     console.error("Uh oh, trouble rendering players!", err);
   }
@@ -105,7 +135,7 @@ const renderNewPlayerForm = () => {
     let name = document.createElement("input");
     name.setAttribute("type", "text");
     name.setAttribute("name", "Full name");
-    name.setAttribute("placeholder", "Full Name")
+    name.setAttribute("placeholder", "Full Name");
 
     // Create input Element for Breed
     let breed = document.createElement("input");
@@ -159,13 +189,13 @@ const renderNewPlayerForm = () => {
     teamId.setAttribute("placeholder", "TeamId");
 
     // Create Submit button
-      let submit = document.createElement("button");
-      submit.setAttribute("type", "submit");
-      submit.setAttribute("id", "loginForm");
-      submit.innerHTML = "Submit";
-      submit.addEventListener("click", async () =>{
+    let submit = document.createElement("button");
+    submit.setAttribute("type", "submit");
+    submit.setAttribute("id", "loginForm");
+    submit.innerHTML = "Submit";
+    submit.addEventListener("click", async () => {
       await addNewPlayer();
-      });
+    });
 
     // Append the name input to the form
     form.appendChild(name);
@@ -190,13 +220,13 @@ const renderNewPlayerForm = () => {
 
     // Section for rendering all players back to the DOM
     // init();
-
   } catch (err) {
     console.error("Uh oh, trouble rendering the new player form!", err);
   }
 };
 
-const init = async () => {``
+const init = async () => {
+  ``;
   const players = await fetchAllPlayers();
   renderAllPlayers(players);
 
