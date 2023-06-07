@@ -25,7 +25,7 @@ const fetchSinglePlayer = async (playerId) => {
   }
 };
 
-const addNewPlayer = async (playerObj) => {
+const addNewPlayer = async () => {
   try {
     let nameValue = document.getElementsByTagName("input")[0].value
     let breedValue = document.getElementsByTagName("input")[1].value
@@ -33,7 +33,7 @@ const addNewPlayer = async (playerObj) => {
     let imageValue = document.getElementsByTagName("input")[3].value
     let teamidValue = document.getElementsByTagName("input")[4].value
     
-    const response = await fetch("https://fsa-puppy-bowl.herokuapp.com/api/2302-acc-ct-web-pt-b/players", {
+    const response = await fetch(`${APIURL}/players/`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -44,12 +44,10 @@ const addNewPlayer = async (playerObj) => {
         status: statusValue,
         image: imageValue,
         teamId: teamidValue,
-        timeStamp: new Date(),
-
       }),
     });
     const result = await response.json();
-    alert(result);
+    console.log(result);
   } catch (err) {
     console.error("Oops, something went wrong with adding that player!", err);
   }
@@ -116,14 +114,41 @@ const renderNewPlayerForm = () => {
     breed.setAttribute("placeholder", "Breed");
 
     // Create input Element for Status
-    let status = document.createElement("input");
-    status.setAttribute("type", "text");
-    status.setAttribute("name", "status");
-    status.setAttribute("placeholder", "Status");
+
+    let status1 = document.createElement("input");
+    status1.setAttribute("type", "text");
+    status1.setAttribute("name", "status");
+    status1.setAttribute("placeholder", "Status");
+    // field.appendChild(status1);
+
+    // let field = document.createElement("fieldset");
+
+    // let label1 = document.createElement("label");
+    // label1.setAttribute("for", "status1");
+    // label1.textContent = "Field";
+    // field.appendChild(label1);
+
+    // let status1 = document.createElement("input");
+    // status1.setAttribute("type", "radio");
+    // status1.setAttribute("name", "status");
+    // status1.setAttribute("placeholder", "Status");
+    // field.appendChild(status1);
+
+    // let label2 = document.createElement("label");
+    // label2.setAttribute("for", "status1");
+    // label2.textContent = "Bench";
+    // field.appendChild(label2);
+
+    // let status2 = document.createElement("input");
+    // status2.setAttribute("type", "radio");
+    // status2.setAttribute("name", "status");
+    // status2.setAttribute("placeholder", "Status");
+    // status2.setAttribute("checked","checked");
+    // field.appendChild(status2);
 
     // Create input Element for imageUrl
     let imageUrl = document.createElement("input");
-    imageUrl.setAttribute("type", "text");
+    imageUrl.setAttribute("type", "url");
     imageUrl.setAttribute("name", "imageUrl");
     imageUrl.setAttribute("placeholder", "imageUrl");
 
@@ -149,7 +174,7 @@ const renderNewPlayerForm = () => {
     form.appendChild(breed);
 
     // Append the status input to the form
-    form.appendChild(status);
+    form.appendChild(status1);
 
     // Append the imageUrl input to the form
     form.appendChild(imageUrl);
