@@ -96,6 +96,7 @@ const renderAllPlayers = (players) => {
     players.forEach((player) => {
       const playerElement = document.createElement("div");
       playerElement.classList.add("player");
+      playerElement.setAttribute("id", `player-${player.id}`);
       playerElement.innerHTML = `
                 <h2>${player.name}</h2>
                 <p>${player.breed}</p>
@@ -107,7 +108,9 @@ const renderAllPlayers = (players) => {
       // delete party
       const deleteButton = playerElement.querySelector(".delete-button");
       deleteButton.addEventListener("click", async (event) => {
-        removePlayer(player.id);
+        await removePlayer(player.id);
+        const deleted = document.getElementById(`player-${player.id}`);
+        playerContainer.removeElement(deleted);
       });
     });
   } catch (err) {
