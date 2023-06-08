@@ -182,6 +182,9 @@ const renderNewPlayerForm = () => {
     submit.innerHTML = "Submit";
     submit.addEventListener("click", async (event) => {
       await addNewPlayer(event);
+      newPlayerFormContainer.innerHTML = ""
+      playerContainer.innerHTML = ""
+      init();
     });
 
     // Append the name input to the form
