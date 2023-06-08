@@ -44,9 +44,6 @@ form input {
   width: 15%;
 }
 
-form input::placeholder {
-}
-
 form button[type="submit"] {
   font-size: 1.2em;
   width: 10%;
