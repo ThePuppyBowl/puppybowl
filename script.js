@@ -29,7 +29,8 @@ const fetchSinglePlayer = async (playerId) => {
   }
 };
 
-const addNewPlayer = async () => {
+const addNewPlayer = async (e) => {
+  e.preventDefault();
   try {
     let nameValue = document.getElementsByTagName("input")[0].value;
     let breedValue = document.getElementsByTagName("input")[1].value;
@@ -37,7 +38,7 @@ const addNewPlayer = async () => {
     let imageValue = document.getElementsByTagName("input")[3].value;
     let teamidValue = document.getElementsByTagName("input")[4].value;
 
-    const response = await fetch("https://fsa-puppy-bowl.herokuapp.com/api/2302-acc-ct-web-pt-d/players", {
+    const response = await fetch("https://fsa-puppy-bowl.herokuapp.com/api/2302-acc-ct-web-pt-b/players", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -179,8 +180,8 @@ const renderNewPlayerForm = () => {
     submit.setAttribute("type", "submit");
     submit.setAttribute("id", "loginForm");
     submit.innerHTML = "Submit";
-    submit.addEventListener("click", async () => {
-      await addNewPlayer();
+    submit.addEventListener("click", async (event) => {
+      await addNewPlayer(event);
     });
 
     // Append the name input to the form
