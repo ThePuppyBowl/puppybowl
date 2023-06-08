@@ -31,40 +31,26 @@ const fetchSinglePlayer = async (playerId) => {
 
 const addNewPlayer = async () => {
   try {
-<<<<<<< HEAD
-    let nameValue = document.getElementsByTagName("input")[0].value
-    let breedValue = document.getElementsByTagName("input")[1].value
-    let statusValue = document.getElementsByTagName("input")[2].value
-    let imageValue = document.getElementsByTagName("input")[3].value
-    let teamidValue = document.getElementsByTagName("input")[4].value
-    
-    const response = await fetch(`${APIURL}/players/`, {
-      method: 'POST',
-=======
     let nameValue = document.getElementsByTagName("input")[0].value;
     let breedValue = document.getElementsByTagName("input")[1].value;
     let statusValue = document.getElementsByTagName("input")[2].value;
     let imageValue = document.getElementsByTagName("input")[3].value;
     let teamidValue = document.getElementsByTagName("input")[4].value;
 
-    const response = await fetch(PLAYERS_API_URL, {
+    const response = await fetch("https://fsa-puppy-bowl.herokuapp.com/api/2302-acc-ct-web-pt-d/players", {
       method: "POST",
->>>>>>> refs/remotes/origin/main
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        name: nameValue,
-        breed: breedValue,
-        status: statusValue,
-        image: imageValue,
-        teamId: teamidValue,
-<<<<<<< HEAD
-=======
-        timeStamp: new Date(),
->>>>>>> refs/remotes/origin/main
-      }),
+        "name": `${nameValue}`,
+        "breed": `${breedValue}`,
+        "status": `${statusValue}`,
+        "image": `${imageValue}`,
+        "teamId": `${teamidValue}`,
+      })
     });
+    console.log("Status is : ",response.status)
     const result = await response.json();
     console.log(result);
   } catch (err) {
@@ -105,7 +91,7 @@ const removePlayer = async (playerId) => {
 const renderAllPlayers = (playerList) => {
   try {
     playerContainer.innerHTML = "";
-    players.forEach((player) => {
+    playerList.forEach((player) => {
       const playerElement = document.createElement("div");
       playerElement.classList.add("player");
       playerElement.innerHTML = `
@@ -226,10 +212,8 @@ const renderNewPlayerForm = () => {
 };
 
 const init = async () => {
-  ``;
   const players = await fetchAllPlayers();
-  renderAllPlayers(players);
-
+  renderAllPlayers(players.data.players);
   renderNewPlayerForm();
 };
 
