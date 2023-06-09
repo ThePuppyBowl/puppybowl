@@ -2,7 +2,7 @@ const playerContainer = document.getElementById("all-players-container");
 const newPlayerFormContainer = document.getElementById("new-player-form");
 
 // Add your cohort name to the cohortName variable below, replacing the 'COHORT-NAME' placeholder
-const cohortName = "2302-ACC-CT-WEB-PT-D";
+const cohortName = "2302-ACC-CT-WEB-PT-B";
 // Use the APIURL variable for fetch requests
 const APIURL = `https://fsa-puppy-bowl.herokuapp.com/api/${cohortName}/`;
 
@@ -94,7 +94,7 @@ const removePlayer = async (playerId) => {
 const renderAllPlayers = (players) => {
   try {
     playerContainer.innerHTML = "";
-    playerList.forEach((player) => {
+    players.forEach((player) => {
       const playerElement = document.createElement("div");
       playerElement.classList.add("player");
       playerElement.setAttribute("id", `player-${player.id}`);
@@ -229,7 +229,7 @@ const renderNewPlayerForm = () => {
 
 const init = async () => {
   const players = await fetchAllPlayers();
-  renderAllPlayers(players.data.players);
+  renderAllPlayers(players);
   renderNewPlayerForm();
 };
 
