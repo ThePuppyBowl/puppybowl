@@ -12,6 +12,13 @@ const PLAYERS_API_URL = `${APIURL}/players`;
  * It fetches all players from the API and returns them
  * @returns An array of objects.
  */
+
+const setDefaults = async () => {
+  newPlayerFormContainer.innerHTML = "";
+  playerContainer.innerHTML = "";
+   init();
+};
+
 const fetchAllPlayers = async () => {
   try {
     const response = await fetch(PLAYERS_API_URL);
@@ -38,20 +45,23 @@ const addNewPlayer = async (e) => {
     let imageValue = document.getElementsByTagName("input")[3].value;
     let teamidValue = document.getElementsByTagName("input")[4].value;
 
-    const response = await fetch("https://fsa-puppy-bowl.herokuapp.com/api/2302-acc-ct-web-pt-b/players", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        "name": `${nameValue}`,
-        "breed": `${breedValue}`,
-        "status": `${statusValue}`,
-        "image": `${imageValue}`,
-        "teamId": `${teamidValue}`,
-      })
-    });
-    console.log("Status is : ",response.status)
+    const response = await fetch(
+      "https://fsa-puppy-bowl.herokuapp.com/api/2302-acc-ct-web-pt-b/players",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: `${nameValue}`,
+          breed: `${breedValue}`,
+          status: `${statusValue}`,
+          image: `${imageValue}`,
+          teamId: `${teamidValue}`,
+        }),
+      }
+    );
+    console.log("Status is : ", response.status);
     const result = await response.json();
     console.log(result);
   } catch (err) {
@@ -61,8 +71,8 @@ const addNewPlayer = async (e) => {
 
 const removePlayer = async (playerId) => {
   try {
-    fetch(`${PLAYERS_API_URL}/${playerId}`, { method: "DELETE" });
-    await init();
+   await fetch(`${PLAYERS_API_URL}/${playerId}`, { method: "DELETE" });
+    setDefaults();
   } catch (err) {
     console.error(
       `Whoops, trouble removing player #${playerId} from the roster!`,
@@ -88,12 +98,11 @@ const removePlayer = async (playerId) => {
  * the API to remove a player from the roster.
  *
  * The `fetchSinglePlayer` and `removePlayer` functions are defined in the
- * @param playerList - an array of player objects
+ * @param play of player obyerList - an arrajects
  * @returns the playerContainerHTML variable.
  */
 const renderAllPlayers = (players) => {
   try {
-    playerContainer.innerHTML = "";
     players.forEach((player) => {
       const playerElement = document.createElement("div");
       playerElement.classList.add("player");
@@ -194,9 +203,7 @@ const renderNewPlayerForm = () => {
     submit.innerHTML = "Submit";
     submit.addEventListener("click", async (event) => {
       await addNewPlayer(event);
-      newPlayerFormContainer.innerHTML = ""
-      playerContainer.innerHTML = ""
-      init();
+      setDefaults();
     });
 
     // Append the name input to the form
