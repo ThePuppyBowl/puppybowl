@@ -103,7 +103,6 @@ const removePlayer = async (playerId) => {
  */
 const renderAllPlayers = (players) => {
   try {
-    playerContainer.innerHTML = "";
     players.forEach((player) => {
       const playerElement = document.createElement("div");
       playerElement.classList.add("player");
