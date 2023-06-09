@@ -16,7 +16,7 @@ const PLAYERS_API_URL = `${APIURL}/players`;
 const setDefaults = async () => {
   newPlayerFormContainer.innerHTML = "";
   playerContainer.innerHTML = "";
-  await init();
+  init();
 };
 
 const fetchAllPlayers = async () => {
@@ -71,7 +71,7 @@ const addNewPlayer = async (e) => {
 
 const removePlayer = async (playerId) => {
   try {
-    fetch(`${PLAYERS_API_URL}/${playerId}`, { method: "DELETE" });
+    await fetch(`${PLAYERS_API_URL}/${playerId}`, { method: "DELETE" });
     setDefaults();
   } catch (err) {
     console.error(
