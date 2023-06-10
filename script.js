@@ -29,6 +29,7 @@ const fetchAllPlayers = async () => {
   }
 };
 console.log(fetchAllPlayers());
+
 const fetchSinglePlayer = async (playerId) => {
   try {
   } catch (err) {
