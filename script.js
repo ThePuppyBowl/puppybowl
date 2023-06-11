@@ -31,9 +31,23 @@ const fetchAllPlayers = async () => {
 
 const fetchSinglePlayer = async (playerId) => {
   try {
-    const response = await fetch(`${PLAYERS_API_URL}/${playerId}`);
-    console.log(response.status);
+    const response = await fetch(`${PLAYERS_API_URL}/${playerId}`);    
     const result = await response.json();
+
+    const playerElement = document.getElementById(`player-${playerId}`);
+    const button = document.querySelector(`button[data-id="${playerId}"`);
+    const playerInfo = document.createElement("div");
+    console.log(playerElement);
+    const playerObj = result.data.player;
+    playerInfo.innerHTML = `<p>Player Url: ${playerObj.imageUrl}</p>
+                            <p>Created at: ${playerObj.createdAt}</p>
+                            <p>Updated at: ${playerObj.updatedAt}</p>
+                            <p>Team ID: ${playerObj.teamId}</p>
+                            <p>Cohort ID: ${playerObj.cohortId}</p>
+    `
+
+    playerElement.insertBefore(playerInfo, button);
+
     console.log(result);
   } catch (err) {
     console.error(`Oh no, trouble fetching player #${playerId}!`, err);
@@ -48,14 +62,15 @@ const addNewPlayer = async (e) => {
     let breedValue = document.getElementsByTagName("input")[1].value;
     let imageValue = document.getElementsByTagName("input")[2].value;
 
+    console.log("image url is: ", imageValue);
+
     let dropdownTeam = document.getElementById("teamId");
-    console;
     let selectedTeamValue = dropdownTeam.value;
-    console.log(selectedTeamValue);
+
 
     let dropdownStatus = document.getElementById("status");
     let selectedStatusValue = dropdownStatus.value;
-    console.log(selectedStatusValue);
+
 
     const response = await fetch(PLAYERS_API_URL, {
       method: "POST",
@@ -66,7 +81,7 @@ const addNewPlayer = async (e) => {
         name: `${nameValue}`,
         breed: `${breedValue}`,
         status: `${selectedStatusValue}`,
-        image: `${imageValue}`,
+        imageUrl: `${imageValue}`,
         teamId: `${selectedTeamValue}`,
       }),
     });
@@ -129,9 +144,9 @@ const renderAllPlayers = (players) => {
       playerElement.classList.add("player");
       playerElement.setAttribute("id", `player-${player.id}`);
       playerElement.innerHTML = `
-                <h2>${player.name}</h2>
-                <p>${player.breed}</p>
-                <p>${player.status}</p>
+                <h2>Name: ${player.name}</h2>
+                <p>Breed: ${player.breed}</p>
+                <p>Status: ${player.status}</p>
                 <button id="details-button" data-id="${player.id}">Details</button>
                 <button class="delete-button" data-id="${player.id}">Delete</button>
                 `;
