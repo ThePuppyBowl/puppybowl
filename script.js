@@ -45,7 +45,7 @@ const addNewPlayer = async (e) => {
   try {
     // Getting values from the form
     let nameValue = document.getElementsByTagName("input")[0].value;
-    let breedValue = document.getElementsByTagName("input")[1].value;    
+    let breedValue = document.getElementsByTagName("input")[1].value;
     let imageValue = document.getElementsByTagName("input")[2].value;
 
     let dropdownTeam = document.getElementById("teamId");
@@ -57,7 +57,7 @@ const addNewPlayer = async (e) => {
     let selectedStatusValue = dropdownStatus.value;
     console.log(selectedStatusValue);
 
-    
+
 
     const response = await fetch(
       PLAYERS_API_URL,
@@ -117,6 +117,10 @@ const removePlayer = async (playerId) => {
  */
 const renderAllPlayers = (players) => {
   try {
+    const teamRuffContainer = document.createElement("div");
+    const teamFluffContainer = document.createElement("div");
+    playerContainer.appendChild(teamFluffContainer);
+    playerContainer.appendChild(teamRuffContainer);
     players.forEach((player) => {
       const playerElement = document.createElement("div");
       playerElement.classList.add("player");
@@ -128,7 +132,12 @@ const renderAllPlayers = (players) => {
                 <button id="details-button" data-id="${player.id}">Details</button>
                 <button class="delete-button" data-id="${player.id}">Delete</button>
                 `;
-      playerContainer.appendChild(playerElement);
+
+      if (player.teamId == 739) {
+        teamRuffContainer.appendChild(playerElement);
+      } else {
+        teamFluffContainer.appendChild(playerElement);
+      }
 
       // Details button
       const detailButton = playerElement.querySelector("#details-button");
@@ -191,7 +200,7 @@ const renderNewPlayerForm = () => {
 
     status1.appendChild(option1);
     status1.appendChild(option2);
-    
+
 
     // Create input Element for imageUrl
     let imageUrl = document.createElement("input");
