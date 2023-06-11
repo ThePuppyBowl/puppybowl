@@ -31,7 +31,7 @@ const fetchAllPlayers = async () => {
 
 const fetchSinglePlayer = async (playerId) => {
   try {
-    const response = await fetch(`${PLAYERS_API_URL}/${playerId}`);    
+    const response = await fetch(`${PLAYERS_API_URL}/${playerId}`);
     const result = await response.json();
 
     const playerElement = document.getElementById(`player-${playerId}`);
@@ -39,12 +39,13 @@ const fetchSinglePlayer = async (playerId) => {
     const playerInfo = document.createElement("div");
     console.log(playerElement);
     const playerObj = result.data.player;
+
     playerInfo.innerHTML = `<p>Player Url: ${playerObj.imageUrl}</p>
                             <p>Created at: ${playerObj.createdAt}</p>
                             <p>Updated at: ${playerObj.updatedAt}</p>
                             <p>Team ID: ${playerObj.teamId}</p>
                             <p>Cohort ID: ${playerObj.cohortId}</p>
-    `
+    `;
 
     playerElement.insertBefore(playerInfo, button);
 
@@ -67,10 +68,8 @@ const addNewPlayer = async (e) => {
     let dropdownTeam = document.getElementById("teamId");
     let selectedTeamValue = dropdownTeam.value;
 
-
     let dropdownStatus = document.getElementById("status");
     let selectedStatusValue = dropdownStatus.value;
-
 
     const response = await fetch(PLAYERS_API_URL, {
       method: "POST",
