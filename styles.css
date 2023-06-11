@@ -56,17 +56,24 @@ form button[type="submit"] {
 #all-players-container {
   display: flex;
   flex-flow: row wrap;
-  width: 80;
   gap: 2em;
-  margin: 1.5em 1em;
-  justify-content: space-evenly;
-  height: 100%;
+  margin: 1.5em auto;
+  /* justify-content: center; */
+  /* height: 100%; */
+}
+
+.teamContainer {
+  display: flex;
+  gap: 1em;
+  flex-flow: row;
+  width: 50%;
+  margin: 1em;
 }
 
 .player {
   display: flex;
   flex-flow: column wrap;
-  width: 20%;
+  width: 100%;
   height: 100%;
   /* height: 8em; */
   background-color: #ffc9c9;
