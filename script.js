@@ -49,32 +49,27 @@ const addNewPlayer = async (e) => {
     let imageValue = document.getElementsByTagName("input")[2].value;
 
     let dropdownTeam = document.getElementById("teamId");
-    console
+    console;
     let selectedTeamValue = dropdownTeam.value;
-    console.log(selectedTeamValue)
+    console.log(selectedTeamValue);
 
     let dropdownStatus = document.getElementById("status");
     let selectedStatusValue = dropdownStatus.value;
     console.log(selectedStatusValue);
 
-
-
-    const response = await fetch(
-      PLAYERS_API_URL,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: `${nameValue}`,
-          breed: `${breedValue}`,
-          status: `${selectedStatusValue}`,
-          image: `${imageValue}`,
-          teamId: `${selectedTeamValue}`,
-        }),
-      }
-    );
+    const response = await fetch(PLAYERS_API_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: `${nameValue}`,
+        breed: `${breedValue}`,
+        status: `${selectedStatusValue}`,
+        image: `${imageValue}`,
+        teamId: `${selectedTeamValue}`,
+      }),
+    });
     console.log("Status is : ", response.status);
     const result = await response.json();
     console.log(result);
@@ -119,6 +114,14 @@ const renderAllPlayers = (players) => {
   try {
     const teamRuffContainer = document.createElement("div");
     const teamFluffContainer = document.createElement("div");
+    const teamRuffTitle = document.createElement("h3");
+    const teamFluffTitle = document.createElement("h3");
+    teamRuffTitle.innerHTML = "Team Ruff";
+    teamFluffTitle.innerHTML = "Team Fluff";
+    teamRuffContainer.classList.add("teamContainer");
+    teamFluffContainer.classList.add("teamContainer");
+    teamRuffContainer.appendChild(teamRuffTitle);
+    teamFluffContainer.appendChild(teamFluffTitle);
     playerContainer.appendChild(teamFluffContainer);
     playerContainer.appendChild(teamRuffContainer);
     players.forEach((player) => {
@@ -200,7 +203,6 @@ const renderNewPlayerForm = () => {
 
     status1.appendChild(option1);
     status1.appendChild(option2);
-
 
     // Create input Element for imageUrl
     let imageUrl = document.createElement("input");
