@@ -28,7 +28,6 @@ const fetchAllPlayers = async () => {
     console.error("Uh oh, trouble fetching players!", err);
   }
 };
-console.log(fetchAllPlayers());
 
 const fetchSinglePlayer = async (playerId) => {
   try {
@@ -40,14 +39,19 @@ const fetchSinglePlayer = async (playerId) => {
 const addNewPlayer = async (e) => {
   e.preventDefault();
   try {
+    // Getting values from the form
     let nameValue = document.getElementsByTagName("input")[0].value;
-    let breedValue = document.getElementsByTagName("input")[1].value;
-    let statusValue = document.getElementsByTagName("input")[2].value;
-    let imageValue = document.getElementsByTagName("input")[3].value;
-    let teamidValue = document.getElementsByTagName("input")[4].value;
+    let breedValue = document.getElementsByTagName("input")[1].value;    
+    let imageValue = document.getElementsByTagName("input")[2].value;
+    let teamidValue = document.getElementsByTagName("input")[3].value;
+    let dropdown = document.getElementById("status");
+    let selectedValue = dropdown.value;
+    console.log(selectedValue);
+
+    
 
     const response = await fetch(
-      "https://fsa-puppy-bowl.herokuapp.com/api/2302-acc-ct-web-pt-b/players",
+      PLAYERS_API_URL,
       {
         method: "POST",
         headers: {
@@ -56,7 +60,7 @@ const addNewPlayer = async (e) => {
         body: JSON.stringify({
           name: `${nameValue}`,
           breed: `${breedValue}`,
-          status: `${statusValue}`,
+          status: `${selectedValue}`,
           image: `${imageValue}`,
           teamId: `${teamidValue}`,
         }),
@@ -154,36 +158,24 @@ const renderNewPlayerForm = () => {
 
     // Create input Element for Status
 
-    let status1 = document.createElement("input");
-    status1.setAttribute("type", "text");
+    let status1 = document.createElement("select");
     status1.setAttribute("name", "status");
+    status1.setAttribute("id", "status");
     status1.setAttribute("placeholder", "Status");
-    // field.appendChild(status1);
 
-    // let field = document.createElement("fieldset");
+    // Creating option for the dropdown menu
+    let option1 = document.createElement("option");
+    option1.setAttribute("value", "field");
+    option1.textContent = "Field";
 
-    // let label1 = document.createElement("label");
-    // label1.setAttribute("for", "status1");
-    // label1.textContent = "Field";
-    // field.appendChild(label1);
+    let option2 = document.createElement("option");
+    option2.setAttribute("value", "bench");
+    option2.setAttribute("selected", "selected");
+    option2.textContent = "Bench";
 
-    // let status1 = document.createElement("input");
-    // status1.setAttribute("type", "radio");
-    // status1.setAttribute("name", "status");
-    // status1.setAttribute("placeholder", "Status");
-    // field.appendChild(status1);
-
-    // let label2 = document.createElement("label");
-    // label2.setAttribute("for", "status1");
-    // label2.textContent = "Bench";
-    // field.appendChild(label2);
-
-    // let status2 = document.createElement("input");
-    // status2.setAttribute("type", "radio");
-    // status2.setAttribute("name", "status");
-    // status2.setAttribute("placeholder", "Status");
-    // status2.setAttribute("checked","checked");
-    // field.appendChild(status2);
+    status1.appendChild(option1);
+    status1.appendChild(option2);
+    
 
     // Create input Element for imageUrl
     let imageUrl = document.createElement("input");
