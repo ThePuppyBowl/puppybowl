@@ -31,6 +31,10 @@ const fetchAllPlayers = async () => {
 
 const fetchSinglePlayer = async (playerId) => {
   try {
+    const response = await fetch(`${PLAYERS_API_URL}/${playerId}`);
+    console.log(response.status);
+    const result = await response.json();
+    console.log(result);
   } catch (err) {
     console.error(`Oh no, trouble fetching player #${playerId}!`, err);
   }
@@ -121,9 +125,16 @@ const renderAllPlayers = (players) => {
                 <h2>${player.name}</h2>
                 <p>${player.breed}</p>
                 <p>${player.status}</p>
+                <button id="details-button" data-id="${player.id}">Details</button>
                 <button class="delete-button" data-id="${player.id}">Delete</button>
                 `;
       playerContainer.appendChild(playerElement);
+
+      // Details button
+      const detailButton = playerElement.querySelector("#details-button");
+      detailButton.addEventListener("click", async (event) => {
+        await fetchSinglePlayer(player.id);
+      });
 
       // delete party
       const deleteButton = playerElement.querySelector(".delete-button");
