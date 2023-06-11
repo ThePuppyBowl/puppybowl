@@ -43,10 +43,15 @@ const addNewPlayer = async (e) => {
     let nameValue = document.getElementsByTagName("input")[0].value;
     let breedValue = document.getElementsByTagName("input")[1].value;    
     let imageValue = document.getElementsByTagName("input")[2].value;
-    let teamidValue = document.getElementsByTagName("input")[3].value;
-    let dropdown = document.getElementById("status");
-    let selectedValue = dropdown.value;
-    console.log(selectedValue);
+
+    let dropdownTeam = document.getElementById("teamId");
+    console
+    let selectedTeamValue = dropdownTeam.value;
+    console.log(selectedTeamValue)
+
+    let dropdownStatus = document.getElementById("status");
+    let selectedStatusValue = dropdownStatus.value;
+    console.log(selectedStatusValue);
 
     
 
@@ -60,9 +65,9 @@ const addNewPlayer = async (e) => {
         body: JSON.stringify({
           name: `${nameValue}`,
           breed: `${breedValue}`,
-          status: `${selectedValue}`,
+          status: `${selectedStatusValue}`,
           image: `${imageValue}`,
-          teamId: `${teamidValue}`,
+          teamId: `${selectedTeamValue}`,
         }),
       }
     );
@@ -184,10 +189,22 @@ const renderNewPlayerForm = () => {
     imageUrl.setAttribute("placeholder", "imageUrl");
 
     // Create input Element for TeamId
-    let teamId = document.createElement("input");
-    teamId.setAttribute("type", "number");
-    teamId.setAttribute("name", "TeamId");
-    teamId.setAttribute("placeholder", "TeamId");
+    let teamId = document.createElement("select");
+    teamId.setAttribute("name", "teamId");
+    teamId.setAttribute("id", "teamId");
+    teamId.setAttribute("placeholder", "team");
+
+    let teamOption1 = document.createElement("option");
+    teamOption1.setAttribute("value", 739);
+    teamOption1.textContent = "Ruff";
+
+    let teamOption2 = document.createElement("option");
+    teamOption2.setAttribute("value", 740);
+    teamOption2.setAttribute("selected", "selected");
+    teamOption2.textContent = "Fluff";
+
+    teamId.appendChild(teamOption1);
+    teamId.appendChild(teamOption2);
 
     // Create Submit button
     let submit = document.createElement("button");
