@@ -39,12 +39,12 @@ const fetchSinglePlayer = async (playerId) => {
     const playerInfo = document.createElement("div");
     console.log(playerElement);
     const playerObj = result.data.player;
-    playerInfo.innerHTML = `<p>Player Url: ${playerObj.imageUrl}</p><br>
-                            <p>Created at: ${playerObj.createdAt}</p><br>
-                            <p>Updated at: ${playerObj.updatedAt}</p><br>
-                            <p>Team ID: ${playerObj.teamId}</p><br>
+    playerInfo.innerHTML = `<p>Player Url: ${playerObj.imageUrl}</p>
+                            <p>Created at: ${playerObj.createdAt}</p>
+                            <p>Updated at: ${playerObj.updatedAt}</p>
+                            <p>Team ID: ${playerObj.teamId}</p>
                             <p>Cohort ID: ${playerObj.cohortId}</p>
-    `
+    `;
 
     playerElement.insertBefore(playerInfo, button);
 
@@ -67,10 +67,8 @@ const addNewPlayer = async (e) => {
     let dropdownTeam = document.getElementById("teamId");
     let selectedTeamValue = dropdownTeam.value;
 
-
     let dropdownStatus = document.getElementById("status");
     let selectedStatusValue = dropdownStatus.value;
-
 
     const response = await fetch(PLAYERS_API_URL, {
       method: "POST",

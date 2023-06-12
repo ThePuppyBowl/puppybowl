@@ -1,88 +1,85 @@
 /* Reset some default styles to ensure consistency across browsers */
-body, h1, h2, h3, h4, h5, h6, p, ul, li {
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul,
+li {
   margin: 0;
   padding: 0;
-  }
-  
-  /* Set a background color and font for the page */
-  body {
-  background-color: #f5f5f5;
-  font-family: Arial, sans-serif;
-  }
-  
-  /* Style the header */
-  header {
-  background-color: #ff5722;
-  padding: 20px;
-  color: #fff;
-  text-align: center;
-  }
-  
-  header h1 {
-  font-size: 36px;
-  }
-  
-  /* Style the form container */
-  #form-container {
-  max-width: 600px;
-  margin: 20px auto;
-  padding: 20px;
-  background-color: #fff;
-  border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  }
-  
-  #form-container h3 {
-  margin-bottom: 10px;
-  color: #333;
-  }
-  
-  /* Style the new player form */
-  #new-player-form {
-  margin-bottom: 20px;
-  }
-  
-  #new-player-form label {
-  display: block;
-  margin-bottom: 10px;
-  color: #666;
-  }
-  
-  #new-player-form input[type="text"],
-  #new-player-form input[type="number"] {
-  width: 100%;
-  padding: 5px;
-  border: 1px solid #ccc;
-  border-radius: 3px;
-  }
-  
-  #new-player-form button {
-  display: block;
-  margin-top: 10px;
-  padding: 10px 20px;
-  background-color: #ff5722;
-  color: #fff;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  width: 95%;
+  margin: auto;
+}
+
+header {
+  padding: 1em 0;
+}
+
+h1 {
+  font-size: 2.5em;
+  display: inline;
+}
+
+h3 {
+  font-size: 1.8em;
+}
+
+#form-container {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+}
+
+form {
+  display: flex;
+  flex-flow: row wrap;
+  gap: 1em;
+  padding: 1em;
+  justify-content: space-between;
+  /* width: 80%; */
+  background-color: #ffc9c9;
+  margin: 0;
+}
+
+form input {
+  font-size: 1.2em;
+  width: 15%;
+}
+
+form button[type="submit"] {
+  font-size: 1.2em;
+  width: 10%;
+  /* padding: 1em; */
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  }
-  
-  #new-player-form button:hover {
+}
+
+#new-player-form button:hover {
   background-color: #ff784e;
-  }
-  
-  /* Style the all players container */
-  #all-players-container {
+}
+
+/* Style the all players container */
+#all-players-container {
   max-width: 600px;
   margin: 0 auto;
   padding: 20px;
   background-color: #fff;
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  }
-  
-  /* Style the individual player */
-  .player {
+}
+
+/* Style the individual player */
+.player {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -90,33 +87,33 @@ body, h1, h2, h3, h4, h5, h6, p, ul, li {
   padding: 10px;
   background-color: #f5f5f5;
   border-radius: 3px;
-  }
-  
-  .player-name {
+}
+
+.player-name {
   flex: 1;
   color: #333;
-  }
-  
-  .player-score {
+}
+
+.player-score {
   flex: 0 0 80px;
   text-align: center;
-  }
-  
-  .player-buttons {
+}
+
+.player-buttons {
   flex: 0 0 100px;
   display: flex;
   justify-content: space-between;
-  }
-  
-  .player-buttons button {
+}
+
+.player-buttons button {
   padding: 5px;
   background-color: #ff5722;
   color: #fff;
   border: none;
   border-radius: 3px;
   cursor: pointer;
-  }
-  
-  .player-buttons button:hover {
+}
+
+.player-buttons button:hover {
   background-color: #ff784e;
-  }
+}
