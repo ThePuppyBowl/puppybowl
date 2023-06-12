@@ -31,13 +31,15 @@ const fetchAllPlayers = async () => {
 
 const fetchSinglePlayer = async (playerId) => {
   try {
+    
     const response = await fetch(`${PLAYERS_API_URL}/${playerId}`);
     const result = await response.json();
 
     const playerElement = document.getElementById(`player-${playerId}`);
     const button = document.querySelector(`button[data-id="${playerId}"`);
     const playerInfo = document.createElement("div");
-    console.log(playerElement);
+    playerInfo.innerHTML = "";
+
     const playerObj = result.data.player;
     playerInfo.innerHTML = `<p>Player Url: ${playerObj.imageUrl}</p>
                             <p>Created at: ${playerObj.createdAt}</p>
@@ -48,7 +50,7 @@ const fetchSinglePlayer = async (playerId) => {
 
     playerElement.insertBefore(playerInfo, button);
 
-    console.log(result);
+   // console.log(result);
   } catch (err) {
     console.error(`Oh no, trouble fetching player #${playerId}!`, err);
   }
@@ -158,6 +160,7 @@ const renderAllPlayers = (players) => {
       // Details button
       const detailButton = playerElement.querySelector("#details-button");
       detailButton.addEventListener("click", async (event) => {
+        console.log(event);
         await fetchSinglePlayer(player.id);
       });
 
