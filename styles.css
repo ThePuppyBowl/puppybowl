@@ -101,6 +101,7 @@ form button[type="submit"] {
 
 .player-buttons {
   flex: 0 0 100px;
+  gap: 0.5em;
   display: flex;
   justify-content: space-between;
 }
@@ -116,4 +117,9 @@ form button[type="submit"] {
 
 .player-buttons button:hover {
   background-color: #ff784e;
+}
+
+/* Used as a way to hide and display data; main use is for the details and collapse buttons currently */
+.hidden {
+  display: none;
 }
