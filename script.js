@@ -35,9 +35,11 @@ const fetchSinglePlayer = async (playerId) => {
     const result = await response.json();
 
     const playerElement = document.getElementById(`player-${playerId}`);
-    const button = document.querySelector(`button[data-id="${playerId}"`);
+    // const button = document.querySelector(`button[data-id="${playerId}"`);
+    const buttonsDiv = document.getElementById(`buttons-div-${playerId}`);
     const playerInfo = document.createElement("div");
-    console.log(playerElement);
+    playerInfo.setAttribute("id", "details-displayed");
+    // console.log(playerElement);
     const playerObj = result.data.player;
     playerInfo.innerHTML = `<p>Player Url: ${playerObj.imageUrl}</p>
                             <p>Created at: ${playerObj.createdAt}</p>
@@ -46,9 +48,9 @@ const fetchSinglePlayer = async (playerId) => {
                             <p>Cohort ID: ${playerObj.cohortId}</p>
     `;
 
-    playerElement.insertBefore(playerInfo, button);
+    playerElement.insertBefore(playerInfo, buttonsDiv);
 
-    console.log(result);
+    // console.log(result, playerInfo, buttonsDiv);
   } catch (err) {
     console.error(`Oh no, trouble fetching player #${playerId}!`, err);
   }
@@ -142,11 +144,13 @@ const renderAllPlayers = (players) => {
       playerElement.classList.add("player");
       playerElement.setAttribute("id", `player-${player.id}`);
       playerElement.innerHTML = `
-                <h2>Name: ${player.name}</h2><br>
+                <h2 class='player-name'>Name: ${player.name}</h2><br>
                 <p>Breed: ${player.breed}</p><br>
                 <p>Status: ${player.status}</p><br>
-                <button id="details-button" data-id="${player.id}">Details</button>
-                <button class="delete-button" data-id="${player.id}">Delete</button>
+                <div class="player-buttons" id="buttons-div-${player.id}" data-id="${player.id} ">
+                <button id="details-button"  data-id="${player.id}">Details</button>
+                <button id="collapse-button" class="hidden" data-id="${player.id}">Collapse</button>
+                <button id="delete-button"  data-id="${player.id}">Delete</button></div>
                 `;
 
       if (player.teamId == 739) {
@@ -157,12 +161,23 @@ const renderAllPlayers = (players) => {
 
       // Details button
       const detailButton = playerElement.querySelector("#details-button");
+      const collapseButton = playerElement.querySelector("#collapse-button");
       detailButton.addEventListener("click", async (event) => {
         await fetchSinglePlayer(player.id);
+        detailButton.classList.add("hidden");
+        collapseButton.classList.remove("hidden");
+      });
+
+      // Collapse button (used to reverse the details button, and collapse the data)
+      collapseButton.addEventListener("click", (event) => {
+        const detailsDiv = document.getElementById("details-displayed");
+        detailsDiv.remove();
+        collapseButton.classList.add("hidden");
+        detailButton.classList.remove("hidden");
       });
 
       // delete party
-      const deleteButton = playerElement.querySelector(".delete-button");
+      const deleteButton = playerElement.querySelector("#delete-button");
       deleteButton.addEventListener("click", async (event) => {
         await removePlayer(player.id);
         const deleted = document.getElementById(`player-${player.id}`);
