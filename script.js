@@ -129,24 +129,34 @@ const renderAllPlayers = (players) => {
   try {
     const teamRuffContainer = document.createElement("div");
     const teamFluffContainer = document.createElement("div");
+    const otherPlayersContainer = document.createElement("div");
     const teamRuffTitle = document.createElement("h3");
     const teamFluffTitle = document.createElement("h3");
+    const otherPlayersTitle = document.createElement("h3");
     teamRuffTitle.innerHTML = "Team Ruff";
     teamFluffTitle.innerHTML = "Team Fluff";
+    otherPlayersTitle.innerHTML = "Other Players";
     teamRuffContainer.classList.add("teamContainer");
     teamFluffContainer.classList.add("teamContainer");
+    otherPlayersContainer.classList.add("teamContainer");
     teamRuffContainer.appendChild(teamRuffTitle);
     teamFluffContainer.appendChild(teamFluffTitle);
+    otherPlayersContainer.appendChild(otherPlayersTitle);
     playerContainer.appendChild(teamFluffContainer);
     playerContainer.appendChild(teamRuffContainer);
+    playerContainer.appendChild(otherPlayersContainer);
     players.forEach((player) => {
       const playerElement = document.createElement("div");
+      const playerName = player.name;
+      const playerNameCapitalized =
+        playerName.charAt(0).toUpperCase() + playerName.slice(1);
+
       playerElement.classList.add("player");
       playerElement.setAttribute("id", `player-${player.id}`);
       playerElement.innerHTML = `
-                <h2 class='player-name'>Name: ${player.name}</h2><br>
-                <p>Breed: ${player.breed}</p><br>
-                <p>Status: ${player.status}</p><br>
+                <div class='player-name-div'><h2 class='player-name'>Name: ${playerNameCapitalized}</h2></div>
+                <p id='player-breed'>Breed: ${player.breed}</p>
+                <p id='player-status'>Status: ${player.status}</p>
                 <div class="player-buttons" id="buttons-div-${player.id}" data-id="${player.id} ">
                 <button id="details-button"  data-id="${player.id}">Details</button>
                 <button id="collapse-button" class="hidden" data-id="${player.id}">Collapse</button>
@@ -155,8 +165,10 @@ const renderAllPlayers = (players) => {
 
       if (player.teamId == 739) {
         teamRuffContainer.appendChild(playerElement);
-      } else {
+      } else if (player.teamId == 740) {
         teamFluffContainer.appendChild(playerElement);
+      } else {
+        otherPlayersContainer.appendChild(playerElement);
       }
 
       // Details button
