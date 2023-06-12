@@ -31,7 +31,7 @@ const fetchAllPlayers = async () => {
 
 const fetchSinglePlayer = async (playerId) => {
   try {
-    const response = await fetch(`${PLAYERS_API_URL}/${playerId}`);    
+    const response = await fetch(`${PLAYERS_API_URL}/${playerId}`);
     const result = await response.json();
 
     const playerElement = document.getElementById(`player-${playerId}`);
@@ -39,10 +39,10 @@ const fetchSinglePlayer = async (playerId) => {
     const playerInfo = document.createElement("div");
     console.log(playerElement);
     const playerObj = result.data.player;
-    playerInfo.innerHTML = `<p>Player Url: ${playerObj.imageUrl}</p>
-                            <p>Created at: ${playerObj.createdAt}</p>
-                            <p>Updated at: ${playerObj.updatedAt}</p>
-                            <p>Team ID: ${playerObj.teamId}</p>
+    playerInfo.innerHTML = `<p>Player Url: ${playerObj.imageUrl}</p><br>
+                            <p>Created at: ${playerObj.createdAt}</p><br>
+                            <p>Updated at: ${playerObj.updatedAt}</p><br>
+                            <p>Team ID: ${playerObj.teamId}</p><br>
                             <p>Cohort ID: ${playerObj.cohortId}</p>
     `
 
@@ -144,9 +144,9 @@ const renderAllPlayers = (players) => {
       playerElement.classList.add("player");
       playerElement.setAttribute("id", `player-${player.id}`);
       playerElement.innerHTML = `
-                <h2>Name: ${player.name}</h2>
-                <p>Breed: ${player.breed}</p>
-                <p>Status: ${player.status}</p>
+                <h2>Name: ${player.name}</h2><br>
+                <p>Breed: ${player.breed}</p><br>
+                <p>Status: ${player.status}</p><br>
                 <button id="details-button" data-id="${player.id}">Details</button>
                 <button class="delete-button" data-id="${player.id}">Delete</button>
                 `;
