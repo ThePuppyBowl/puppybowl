@@ -42,7 +42,7 @@ const fetchSinglePlayer = async (playerId) => {
     playerInfo.setAttribute("id", "details-displayed");
     // console.log(playerElement);
     const playerObj = result.data.player;
-    playerInfo.innerHTML = `<p>Player Url: ${playerObj.imageUrl}</p>
+    playerInfo.innerHTML = `<img src="${playerObj.imageUrl}">
                             <p>Created at: ${playerObj.createdAt}</p>
                             <p>Updated at: ${playerObj.updatedAt}</p>
                             <p>Team ID: ${playerObj.teamId}</p>
@@ -146,6 +146,7 @@ const renderAllPlayers = (players) => {
     playerContainer.appendChild(teamFluffContainer);
     playerContainer.appendChild(teamRuffContainer);
     playerContainer.appendChild(otherPlayersContainer);
+
     players.forEach((player) => {
       const playerElement = document.createElement("div");
       const playerName = player.name;
@@ -176,7 +177,6 @@ const renderAllPlayers = (players) => {
       const detailButton = playerElement.querySelector("#details-button");
       const collapseButton = playerElement.querySelector("#collapse-button");
       detailButton.addEventListener("click", async (event) => {
-        console.log(event);
         await fetchSinglePlayer(player.id);
         detailButton.classList.add("hidden");
         collapseButton.classList.remove("hidden");
