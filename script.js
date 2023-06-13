@@ -36,11 +36,10 @@ const fetchSinglePlayer = async (playerId) => {
     const result = await response.json();
 
     const playerElement = document.getElementById(`player-${playerId}`);
-    // const button = document.querySelector(`button[data-id="${playerId}"`);
     const buttonsDiv = document.getElementById(`buttons-div-${playerId}`);
     const playerInfo = document.createElement("div");
     playerInfo.setAttribute("id", "details-displayed");
-    // console.log(playerElement);
+    
     const playerObj = result.data.player;
     playerInfo.innerHTML = `<img src="${playerObj.imageUrl}">
                             <p>Created at: ${playerObj.createdAt}</p>
@@ -51,7 +50,7 @@ const fetchSinglePlayer = async (playerId) => {
 
     playerElement.insertBefore(playerInfo, buttonsDiv);
 
-    // console.log(result, playerInfo, buttonsDiv);
+  
   } catch (err) {
     console.error(`Oh no, trouble fetching player #${playerId}!`, err);
   }
