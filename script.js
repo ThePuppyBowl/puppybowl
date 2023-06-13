@@ -38,7 +38,8 @@ const fetchSinglePlayer = async (playerId) => {
     const playerElement = document.getElementById(`player-${playerId}`);
     const buttonsDiv = document.getElementById(`buttons-div-${playerId}`);
     const playerInfo = document.createElement("div");
-    playerInfo.setAttribute("id", "details-displayed");
+    playerInfo.setAttribute("class", "details-displayed");
+    playerInfo.setAttribute("id", `info-${playerId}`);
     
     const playerObj = result.data.player;
     playerInfo.innerHTML = `<img src="${playerObj.imageUrl}">
@@ -183,7 +184,7 @@ const renderAllPlayers = (players) => {
 
       // Collapse button (used to reverse the details button, and collapse the data)
       collapseButton.addEventListener("click", (event) => {
-        const detailsDiv = document.getElementById("details-displayed");
+        const detailsDiv = document.getElementById(`info-${player.id}`);
         detailsDiv.remove();
         collapseButton.classList.add("hidden");
         detailButton.classList.remove("hidden");
