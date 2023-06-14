@@ -31,7 +31,6 @@ const fetchAllPlayers = async () => {
 
 const fetchSinglePlayer = async (playerId) => {
   try {
-    
     const response = await fetch(`${PLAYERS_API_URL}/${playerId}`);
     const result = await response.json();
 
@@ -42,7 +41,7 @@ const fetchSinglePlayer = async (playerId) => {
     playerInfo.setAttribute("id", `info-${playerId}`);
     
     const playerObj = result.data.player;
-    playerInfo.innerHTML = `<img src="${playerObj.imageUrl}">
+    playerInfo.innerHTML = `<div class="img-container"><img src="${playerObj.imageUrl}" class='player-img'></div>
                             <p>Created at: ${playerObj.createdAt}</p>
                             <p>Updated at: ${playerObj.updatedAt}</p>
                             <p>Team ID: ${playerObj.teamId}</p>
