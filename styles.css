@@ -36,7 +36,7 @@ h3 {
   gap: 1em;
   flex-flow: row wrap;
   align-items: center;
-  max-width: 50%;
+  max-width: 75%;
   margin: 0 auto 3em auto;
   padding: 20px;
   background-color: #f3fdf4;
@@ -82,7 +82,7 @@ form button[type="submit"] {
 
 /* Style the all players container */
 #all-players-container {
-  max-width: 50%;
+  max-width: 75%;
   margin: 0 auto;
   padding: 1.5em;
   background-color: #f3fdf4;
@@ -143,6 +143,26 @@ form button {
 
 .player-buttons button:hover {
   background-color: #ff784e;
+}
+
+.img-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* width: 9em; */
+  height: 9em;
+}
+
+.player-img {
+  width: auto;
+  /* max-height: 9em; */
+  height: 100%;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+#details-displayed {
+  margin: 1em 2em;
 }
 
 /* Used as a way to hide and display data; main use is for the details and collapse buttons currently */
